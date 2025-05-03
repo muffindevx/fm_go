@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/muffindevx/fm_go/internal/app"
+	"github.com/muffindevx/fm_go/internal/routes"
 )
 
 func main() {
@@ -21,8 +22,11 @@ func main() {
 		panic(err)
 	}
 
+	r := routes.Setup(application)
+
 	server := http.Server{
-		Addr: fmt.Sprintf(":%d", port),
+		Addr:    fmt.Sprintf(":%d", port),
+		Handler: r,
 		/*
 			The maximum amount of time to wait for the next request when keep-alive is enabled
 			If IdleTimeout is zero, the value of ReadTimeout is used
